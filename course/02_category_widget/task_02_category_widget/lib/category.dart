@@ -16,7 +16,12 @@ class Category extends StatelessWidget {
   /// A [Category] saves the name of the Category (e.g. 'Length'), its color for
   /// the UI, and the icon that represents it (e.g. a ruler).
   // TODO: You'll need the name, color, and iconLocation from main.dart
-  const Category();
+  const Category(
+      {@required this.icon, @required this.text, @required this.color});
+
+  final IconData icon;
+  final String text;
+  final Color color;
 
   /// Builds a custom widget that shows [Category] information.
   ///
@@ -28,6 +33,37 @@ class Category extends StatelessWidget {
   // See https://docs.flutter.io/flutter/material/Theme-class.html
   Widget build(BuildContext context) {
     // TODO: Build the custom widget here, referring to the Specs.
-    return Container();
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        height: 100.0,
+        padding: EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () {},
+          highlightColor: color,
+          splashColor: color,
+          borderRadius: BorderRadius.circular(50.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Icon(
+                  icon,
+                  size: 60.0,
+                ),
+              ),
+              Center(
+                child: Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headline,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
