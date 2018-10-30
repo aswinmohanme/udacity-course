@@ -3,10 +3,13 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:quiver/iterables.dart';
 
 // TODO: Check if we need to import anything
+import 'category.dart';
 
 // TODO: Define any constants
+final _backgroundColor = Colors.green[100];
 
 /// Category Route (screen).
 ///
@@ -45,12 +48,37 @@ class CategoryRoute extends StatelessWidget {
     // TODO: Create a list of the eight Categories, using the names and colors
     // from above. Use a placeholder icon, such as `Icons.cake` for each
     // Category. We'll add custom icons later.
+    List<Category> categories = zip([_categoryNames, _baseColors])
+        .map((pair) => Category(
+              name: pair[0],
+              color: pair[1],
+              iconLocation: Icons.account_balance_wallet,
+            ))
+        .toList();
+
+    Widget _buildCategoryWidgets(List<Widget> categories) {
+      return ListView.builder(
+        itemCount: categories.length,
+        itemBuilder: (BuildContext context, int index) => categories[index],
+      );
+    }
 
     // TODO: Create a list view of the Categories
-    final listView = Container();
+    final listView = Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      child: _buildCategoryWidgets(categories),
+      color: _backgroundColor,
+    );
 
     // TODO: Create an App Bar
-    final appBar = AppBar();
+    final appBar = AppBar(
+      title: Text(
+        'Unit Conversion',
+        style: TextStyle(fontSize: 30.0, color: Colors.black),
+      ),
+      elevation: 0.0,
+      backgroundColor: _backgroundColor,
+    );
 
     return Scaffold(
       appBar: appBar,
